@@ -7,7 +7,9 @@
 export const pick = (obj, ...fields) => {
   const result = {};
   fields.forEach(key => {
-    result[key] = obj[key];
+    if (key in obj) {
+      result[key] = obj[key];
+    }
   });
   return result;
 };
