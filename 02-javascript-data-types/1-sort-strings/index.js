@@ -5,8 +5,8 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
-  return arr.sort((a, b) => {
-    const comparisonResult = a.localeCompare(b, undefined, { sensitivity: 'accent' });
+  const sortedArray = [...arr].sort((a, b) => {
+    const comparisonResult = a.localeCompare(b, ['ru', 'en'], { caseFirst: 'upper' });
 
     if (param === 'asc') {
       return comparisonResult;
@@ -15,4 +15,6 @@ export function sortStrings(arr, param = 'asc') {
       return -comparisonResult;
     }
   });
+
+  return sortedArray;
 }
