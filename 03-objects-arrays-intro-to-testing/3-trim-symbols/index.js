@@ -9,7 +9,7 @@ export function trimSymbols(string, size) {
      return ""
    }
 
-   if(![...arguments].find((element) => element === size)){
+   if(size === undefined){
      return string
    }
   let result = '';

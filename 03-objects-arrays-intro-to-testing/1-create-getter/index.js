@@ -8,13 +8,14 @@ export function createGetter(path) {
 
   return function(obj) {
     let result = obj;
-    try {
+
       for (const key of keys) {
         result = result[key];
+        if(!result){
+          return undefined;
+        }
       }
-    } catch (error) {
-      return undefined
-    }
+
     return result;
   };
 }
