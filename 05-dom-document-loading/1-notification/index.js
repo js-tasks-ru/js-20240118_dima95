@@ -1,16 +1,17 @@
 export default class NotificationMessage {
   element;
+  static #lastInstance;
 
-  constructor(message, options) {
+  constructor(message, options = {}) {
     this.message = message;
-    this.duration = options.duration;
-    this.type = options.type;
+    this.duration = options.duration || 1000;
+    this.type = options.type || 'sucess';
     this.element = this.createElement(this.createTemplate());
   }
 
   show(container = document.body) {
     if (NotificationMessage.lastInstance) {
-      NotificationMessage.lastInstance.remove();
+      NotificationMessage.lastInstance.destroy();
     }
 
     NotificationMessage.#lastInstance = this;
@@ -29,22 +30,6 @@ export default class NotificationMessage {
     }
   }
 
-
-
-
-
-
-
-
-  show() {
-    console.log("Show", this.duration);
-    document.body.appendChild(this.element);
-    // this.remove()
-  }
-  destroy() {
-    this.remove();
-  }
-
   remove() {
     this.element.remove();
   }
@@ -57,12 +42,12 @@ export default class NotificationMessage {
 
   createTemplate() {
     return (`
-    <div class="notification success" style="--value:${Number(this.duration/1000)}s">
+    <div class="notification ${this.type}" style="--value:${Number(this.duration / 1000)}s">
     <div class="timer"></div>
     <div class="inner-wrapper">
-      <div class="notification-header">success</div>
+      <div class="notification-header">${this.type}</div>
       <div class="notification-body">
-        Hello world
+        ${this.message}
       </div>
     </div>
   </div>
